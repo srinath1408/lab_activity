@@ -1,0 +1,69 @@
+#include <stdio.h>
+void insert(int Arr[],int item,int loc,int *n,int max){
+    if (*n==max){
+        printf("overflow");
+        return;
+    }
+    int j=*n-1;
+    while (j>=loc){
+        Arr[j+1]=Arr[j];
+        j=j-1;
+    }
+    Arr[loc]=item;
+    *n=*n+1;
+}
+void delete(int Arr[],int loc,int *n){
+    int item=Arr[loc];
+    int j=loc;
+    while (j<(*n-1)){
+        Arr[j]=Arr[j+1];
+        j=j+1;
+    }
+    *n=*n-1;
+}
+void search(int Arr[],int key,int loc,int n){
+    loc=-1;
+    for (int i = 0; i < n; i++)
+    {
+        if(Arr[i]==key){
+            loc=i;
+        }
+    }
+    if(loc==0){
+        printf("element not found\n");
+    }
+    else {
+        printf("element is at position %d\n",loc+1);
+    }   
+}
+int main() 
+{   
+    int max,n,item,loc,key;
+    printf("enter the capacity of the array ");
+    scanf("%d",&max);
+    int Arr[max];
+    printf("enter the size ");
+    scanf("%d",&n);
+    for (int i = 0; i < n; i++)
+    {
+        scanf("%d",&Arr[i]);
+    }
+    printf("enter the element you want to insert ");
+    scanf("%d",&item);
+    printf("enter the location you want it to be stored ");
+    scanf("%d",&loc);
+    insert(Arr,item,loc-1,&n,max);
+    printf("\n");
+    printf("enter the loc you want to delete the element ");
+    scanf("%d",&loc);
+    delete(Arr,loc-1,&n);
+    printf("\nenter the value of the element to search if it exists ");
+    scanf("%d",&key);
+    search(Arr,key,loc,n);
+    printf("the array is: ");
+    for (int i = 0; i < n; i++)
+    {
+        printf("%d,",Arr[i]);
+    }
+    return 0;
+}
