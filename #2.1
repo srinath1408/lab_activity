@@ -36,34 +36,64 @@ void search(int Arr[],int key,int loc,int n){
         printf("element is at position %d\n",loc+1);
     }   
 }
-int main() 
+void sort(int *Arr,int n){
+                int temp;
+        for (int i = 0; i < n-1; i++)
+        {
+            for (int j = 0; j < n-1-i;j++)
+            {
+                if (Arr[j]>Arr[j+1])
+                {
+                    temp=Arr[j];
+                    Arr[j]=Arr[j+1];
+                    Arr[j+1]=temp;
+                }   
+            }  
+        }
+}
+int main()
 {   
-    int max,n,item,loc,key;
+    int max,n,item,loc,key,opt;
     printf("enter the capacity of the array ");
     scanf("%d",&max);
     int Arr[max];
     printf("enter the size ");
     scanf("%d",&n);
+    printf("enter the elements of the array\n");
     for (int i = 0; i < n; i++)
     {
         scanf("%d",&Arr[i]);
     }
-    printf("enter the element you want to insert ");
-    scanf("%d",&item);
-    printf("enter the location you want it to be stored ");
-    scanf("%d",&loc);
-    insert(Arr,item,loc-1,&n,max);
-    printf("\n");
-    printf("enter the loc you want to delete the element ");
-    scanf("%d",&loc);
-    delete(Arr,loc-1,&n);
-    printf("\nenter the value of the element to search if it exists ");
-    scanf("%d",&key);
-    search(Arr,key,loc,n);
+    sort(Arr,n);
+    printf("Press 1 to insert an element in the array\nPress 2 to delete an element from the array\nPress 3 to search an element in the array\n");
+    scanf("%d",&opt);
+    switch (opt)
+    {
+    case 1:
+        printf("enter the element you want to insert ");
+        scanf("%d",&item);
+        printf("enter the location you want it to be stored ");
+        scanf("%d",&loc);
+        insert(Arr,item,loc-1,&n,max);
+        break;
+    case 2:
+        printf("enter the loc you want to delete the element ");
+        scanf("%d",&loc);
+        delete(Arr,loc-1,&n);
+        break;
+    case 3:
+        printf("\nenter the value of the element to search if it exists ");
+        scanf("%d",&key);
+        search(Arr,key,loc,n);
+        break;
+    default:
+        break;
+    }
     printf("the array is: ");
     for (int i = 0; i < n; i++)
     {
         printf("%d,",Arr[i]);
     }
+
     return 0;
 }
