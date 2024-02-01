@@ -1,4 +1,55 @@
 #include <stdio.h>
+void insert(int Arr[],int item,int loc,int *n,int max);
+void delete(int Arr[],int loc,int *n);
+void search(int Arr[],int key,int loc,int n);
+void sort(int *Arr,int n);
+void print_array(int Arr[],int n);
+int main()
+{   
+    int max,n,item,loc,key,opt,doag;
+    printf("enter the capacity of the array ");
+    scanf("%d",&max);
+    int Arr[max];
+    printf("enter the size ");
+    scanf("%d",&n);
+    printf("enter the elements of the array\n");
+    for (int i = 0; i < n; i++)
+    {
+        scanf("%d",&Arr[i]);
+    }
+    sort(Arr,n);
+    do{
+    printf("Press 1 to insert an element in the array\nPress 2 to delete an element from the array\nPress 3 to search an element in the array\n");
+    scanf("%d",&opt);
+    switch (opt)
+    {
+    case 1:
+        printf("enter the element you want to insert ");
+        scanf("%d",&item);
+        printf("enter the location you want it to be stored ");
+        scanf("%d",&loc);
+        insert(Arr,item,loc-1,&n,max);
+        break;
+    case 2:
+        printf("enter the loc you want to delete the element ");
+        scanf("%d",&loc);
+        delete(Arr,loc-1,&n);
+        break;
+    case 3:
+        printf("\nenter the value of the element to search if it exists ");
+        scanf("%d",&key);
+        search(Arr,key,loc,n);
+        break;
+    default:
+        break;
+    }
+    print_array(Arr,n);
+    printf("Press 1 to perform another opration\nPress 0 to exit\n");
+    scanf("%d",&doag);
+    } while (doag==1);
+    printf("Bye");
+      return 0;
+}
 void insert(int Arr[],int item,int loc,int *n,int max){
     if (*n==max){
         printf("overflow");
@@ -51,51 +102,13 @@ void sort(int *Arr,int n){
             }  
         }
 }
-int main()
-{   
-    int max,n,item,loc,key,opt;
-    printf("enter the capacity of the array ");
-    scanf("%d",&max);
-    int Arr[max];
-    printf("enter the size ");
-    scanf("%d",&n);
-    printf("enter the elements of the array\n");
-    for (int i = 0; i < n; i++)
-    {
-        scanf("%d",&Arr[i]);
-    }
-    sort(Arr,n);
-    printf("Press 1 to insert an element in the array\nPress 2 to delete an element from the array\nPress 3 to search an element in the array\n");
-    scanf("%d",&opt);
-    switch (opt)
-    {
-    case 1:
-        printf("enter the element you want to insert ");
-        scanf("%d",&item);
-        printf("enter the location you want it to be stored ");
-        scanf("%d",&loc);
-        insert(Arr,item,loc-1,&n,max);
-        break;
-    case 2:
-        printf("enter the loc you want to delete the element ");
-        scanf("%d",&loc);
-        delete(Arr,loc-1,&n);
-        break;
-    case 3:
-        printf("\nenter the value of the element to search if it exists ");
-        scanf("%d",&key);
-        search(Arr,key,loc,n);
-        break;
-    default:
-        break;
-    }
+void print_array(int Arr[],int n){
     printf("the array is: ");
     for (int i = 0; i < n; i++)
     {
         if(i==n-1){
-            printf("%d.",Arr[i]);
+            printf("%d.\n",Arr[i]);
         }
         else printf("%d,",Arr[i]);
     }
-      return 0;
 }
