@@ -1,5 +1,5 @@
 #include <stdio.h>
-void insert(int Arr[],int item,int loc,int *n,int max);
+void insert(int Arr[],int item,int *n,int max);
 void delete(int Arr[],int loc,int *n);
 void search(int Arr[],int key,int loc,int n);
 void sort(int *Arr,int n);
@@ -26,9 +26,7 @@ int main()
     case 1:
         printf("enter the element you want to insert ");
         scanf("%d",&item);
-        printf("enter the location you want it to be stored ");
-        scanf("%d",&loc);
-        insert(Arr,item,loc-1,&n,max);
+        insert(Arr,item,&n,max);
         break;
     case 2:
         printf("enter the loc you want to delete the element ");
@@ -50,10 +48,19 @@ int main()
     printf("Bye");
       return 0;
 }
-void insert(int Arr[],int item,int loc,int *n,int max){
+void insert(int Arr[],int item,int *n,int max){
     if (*n==max){
         printf("overflow");
         return;
+    }
+    int loc;
+    for (int i = 0; i < *n; i++)
+    {
+        if (Arr[i]>item)
+        {
+           loc=i;
+           break;
+        }
     }
     int j=*n-1;
     while (j>=loc){
