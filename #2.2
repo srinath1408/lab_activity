@@ -1,0 +1,127 @@
+#include <stdio.h>
+void add(int *Arr1, int *Arr2, int *Arr3, int n, int m, int a, int b);
+void sub(int *Arr1, int *Arr2, int *Arr3, int n, int m, int a, int b);
+void mul(int *Arr1, int *Arr2, int *Arr3, int n, int m, int a, int b);
+void tran(int *Arr, int *ArrT, int n, int m);
+void print_array(int *Arr3, int n, int m);
+void scan_array(int *Arr, int n, int m);
+int main(){
+    int n,m,a,b,c,d,opt,doag;
+    printf("enter the order 1st matrice\n");
+    scanf("%d %d",&n,&m);
+    printf("enter the order 2nd matrice\n");
+    scanf("%d %d",&a,&b);
+    int Arr1[n][m];
+    int Arr2[a][b];
+    int ArrT1[m][n];
+    int ArrT2[b][a];
+    c=n;
+    d=b;
+    int Arr3[c][d];
+    printf("enter the elements of the 1st matrice\n");
+    scan_array((int *)Arr1,n,m);
+    printf("enter the elements of the 2nd matrice\n");
+    scan_array((int *)Arr2,a,b);
+    do{
+        printf("Press 1 for additon of the matrices\n");
+        printf("Press 2 for substraction of the matrices\n");
+        printf("Press 3 for multiplication of the matrices\n");
+        printf("Press 4 for transpose of the matrices\n");
+        scanf("%d",&opt);
+        switch (opt)
+        {
+            case 1:
+            add((int *)Arr1,(int *)Arr2,(int *)Arr3,n,m,a,b);
+            print_array((int *)Arr3,n,m);
+            break;
+            case 2:
+            sub((int *)Arr1,(int *)Arr2,(int *)Arr3,n,m,a,b);
+            print_array((int *)Arr3,n,m);
+            break;
+            case 3:
+            mul((int *)Arr1,(int *)Arr2,(int *)Arr3,n,m,a,b);
+            print_array((int *)Arr3,n,m);
+            break;
+            case 4:
+            tran((int *)Arr1, (int *)ArrT1, n, m);
+            printf("Transpose of the 1st matrix:\n");
+            print_array((int *)ArrT1,m,n);
+            tran((int *)Arr2, (int *)ArrT2, a, b);
+            printf("Transpose of the 2nd matrix:\n");
+            print_array((int *)ArrT2,b,a);
+            break;
+            default:
+            break;
+        }
+    printf("Press 1 to perform another opration\nPress 0 to exit\n");
+    scanf("%d",&doag);
+    }while (doag==1);
+    printf("Bye");
+    return 0;
+}
+void add(int *Arr1,int *Arr2,int *Arr3,int n,int m,int a,int b){
+    if(n==a && m==b){
+        for (int i = 0; i < n; i++)
+        {
+            for (int j = 0; j < m; j++)
+            {
+                Arr3[i*m+j]=Arr1[i*m+j]+Arr2[i*m+j];
+            } 
+        }
+    }
+    else printf("the order is not same can't perfom addition\n");
+}
+void sub(int *Arr1,int *Arr2,int *Arr3,int n,int m,int a,int b){
+    if(n==a && m==b){
+        for (int i = 0; i < n; i++)
+        {
+            for (int j = 0; j < m; j++)
+            {
+                Arr3[i*m+j]=Arr1[i*m+j]-Arr2[i*m+j];
+            } 
+        }
+    }
+    else printf("the order is not same can't perfom substraction\n");
+}
+void mul(int *Arr1,int *Arr2,int *Arr3,int n,int m,int a,int b){
+    if (m==a){
+        for (int i = 0; i < n; i++)
+        {
+            for (int j = 0; j < b; j++)
+            {
+                Arr3[i*b+j]=0;
+                for(int k = 0; k < m; k++)
+                {
+                    Arr3[i*b+j]=Arr3[i*b+j]+Arr1[i*m+k]*Arr2[k*b+j];
+                }
+            }
+        }
+    }
+    else printf("multiplication cannot be peerformed\n");
+}
+void tran(int *Arr,int *ArrT,int n,int m){
+    for(int i=0; i < n; i++){
+        for(int j=0; j < m; j++){
+            ArrT[j*m+i]=Arr[i*m+j];
+        }
+    }
+}
+void print_array(int *Arr3,int n,int m){
+    for (int i = 0; i < n; i++)
+        {
+            for (int j = 0; j < m; j++)
+            {
+             printf("%d ",Arr3[i*m+j]);
+            }
+         printf("\n");
+        }
+}
+void scan_array(int *Arr,int n,int m){
+    for (int i = 0; i < n; i++)
+    {
+        for (int j = 0; j < m; j++)
+        {
+            scanf("%d",&Arr[i*m+j]);
+        }
+    }
+}
