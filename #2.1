@@ -53,7 +53,7 @@ void insert(int Arr[],int item,int *n,int max){
         printf("overflow");
         return;
     }
-    int loc;
+    int loc=1;
     for (int i = 0; i < *n; i++)
     {
         if (Arr[i]>item)
@@ -87,12 +87,12 @@ void search(int Arr[],int key,int loc,int n){
             loc=i;
         }
     }
-    if(loc==0){
+    if(loc==-1){
         printf("element not found\n");
     }
     else {
         printf("element is at position %d\n",loc+1);
-    }   
+    }  
 }
 void sort(int *Arr,int n){
                 int temp;
