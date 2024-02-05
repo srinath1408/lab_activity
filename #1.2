@@ -1,0 +1,16 @@
+#include <stdio.h>
+void TOH(int n,char A,char B,char C){
+    if(n==1){
+        printf("%c --> %c\n",A,C);
+        return;
+    }
+    TOH(n-1,A,C,B);
+    printf("%c --> %c\n",A,C);
+    TOH(n-1,B,A,C);
+}
+void main(){
+    int n;
+    printf("enter the no. of disks ");
+    scanf("%d",&n);
+    TOH(n,'A','B','C');  
+}
