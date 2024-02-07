@@ -1,32 +1,38 @@
 #include <stdio.h>
-void insert(int Arr[],int item,int *n,int max);
+#include <stdlib.h>
+void insert(int **Arr,int item,int *n,int *max);
 void delete(int Arr[],int loc,int *n);
 void search(int Arr[],int key,int loc,int n);
-void sort(int *Arr,int n);
+void sort(int Arr[],int n);
 void print_array(int Arr[],int n);
 int main()
 {   
-    int max,n,item,loc,key,opt,doag;
-    printf("enter the capacity of the array ");
-    scanf("%d",&max);
-    int Arr[max];
+    int n,item,loc,key,opt,doag;
     printf("enter the size ");
     scanf("%d",&n);
+    int max=n;
+    int *Arr=(int *)malloc(n*sizeof(int));
+    if (Arr==NULL){
+        printf("Memory allocation failed");
+        return 1;
+    }
     printf("enter the elements of the array\n");
     for (int i = 0; i < n; i++)
     {
         scanf("%d",&Arr[i]);
     }
     sort(Arr,n);
-    do{
-    printf("Press 1 to insert an element in the array\nPress 2 to delete an element from the array\nPress 3 to search an element in the array\n");
-    scanf("%d",&opt);
+    do {
+        printf("\nPress 1 to insert an element in the array\n"
+               "Press 2 to delete an element from the array\n"
+               "Press 3 to search an element in the array\n");
+                scanf("%d", &opt);
     switch (opt)
     {
     case 1:
         printf("enter the element you want to insert ");
         scanf("%d",&item);
-        insert(Arr,item,&n,max);
+        insert(&Arr,item,&n,&max);
         break;
     case 2:
         printf("enter the loc you want to delete the element ");
@@ -37,39 +43,42 @@ int main()
         printf("\nenter the value of the element to search if it exists ");
         scanf("%d",&key);
         search(Arr,key,loc,n);
+    
         break;
     default:
         break;
     }
     print_array(Arr,n);
-    printf("Press 1 to perform another opration\nPress 0 to exit\n");
+    printf("Press 1 to perform another operation\n"
+            "Press 0 to exit\n");
     scanf("%d",&doag);
     } while (doag==1);
+    free(Arr);
     printf("Bye");
       return 0;
 }
-void insert(int Arr[],int item,int *n,int max){
-    if (*n==max){
-        printf("overflow");
-        return;
-    }
-    int loc=1;
-    for (int i = 0; i < *n; i++)
-    {
-        if (Arr[i]>item)
-        {
-           loc=i;
-           break;
+void insert(int **Arr, int item, int *n, int *max) {
+    if (*n == *max) {
+        *max *= 2;
+        *Arr = (int *)realloc(*Arr, (*max) * sizeof(int));
+        if (*Arr == NULL) {
+            printf("Memory reallocation failed\n");
+            return;
         }
     }
-    int j=*n-1;
-    while (j>=loc){
-        Arr[j+1]=Arr[j];
-        j=j-1;
+    
+    int loc = 0;
+    while (loc < *n && (*Arr)[loc] < item) {
+        loc++;
     }
-    Arr[loc]=item;
-    *n=*n+1;
+
+    for (int j = *n - 1; j >= loc; j--) {
+        (*Arr)[j + 1] = (*Arr)[j];
+    }
+    (*Arr)[loc] = item;
+    (*n)++;
 }
+
 void delete(int Arr[],int loc,int *n){
     int item=Arr[loc];
     int j=loc;
@@ -94,7 +103,7 @@ void search(int Arr[],int key,int loc,int n){
         printf("element is at position %d\n",loc+1);
     }  
 }
-void sort(int *Arr,int n){
+void sort(int Arr[],int n){
                 int temp;
         for (int i = 0; i < n-1; i++)
         {
