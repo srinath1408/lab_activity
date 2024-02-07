@@ -11,6 +11,7 @@ for (int i = 0; i < n; i++){
      scanf("%d",&Arr[i][j]);
   }
 }
+getchar();
 for(int i=0; i< n; i++){
   for(int j=0;j<m; j++){
     if(Arr[i][j]!=0){
@@ -18,10 +19,9 @@ for(int i=0; i< n; i++){
     }
  }
 }
-printf("%d",count);
-printf("%d",((n*m)/2));
-if (count <= ((n*m)/2)){
+getchar();
 int sparse[3][count+1];
+if (count <= ((n*m)/2)){
 int k=1;
 sparse[0][0]=n;
 sparse[1][0]=m;
@@ -44,29 +44,29 @@ for(int i=0;i<3;i++){
         printf("%d ",sparse[i][j]);
     }
     printf("\n");
-}
+    }
 }else printf("not a sparse matrix");
 int opt;
-printf("\nPress 1 to retrive the original matrix\n"
+printf("\nPress 1 to retrieve the original matrice\n"
         "Press 0 to exit\n");
-scanf("%d",&opt);
-if(opt==1){
-    int O[sparse[0][0]][sparse[1][0]];
-    for(int i=0;i<n ;i++){
-        for(int j=0;j<m ;j++){
-         O[i][j]=0;
-        } 
-    }
-    for(int i=1;i<=count;i++){
+        scanf("%d",&opt);
+if (opt==1){
+int O[sparse[0][0]][sparse[1][0]];
+for(int i=0;i<n ;i++){
+    for(int j=0;j<m ;j++){
+        O[i][j]=0;
+    } 
+}
+for(int i=1;i<=count;i++){
     O[sparse[0][i]][sparse[1][i]]=sparse[2][i];
-    }
-    for(int i=0;i<=n ;i++){
-        for(int j=0;j<=m;j++){
-         printf("%d ",O[i][j]);
-        } 
-        printf("\n");
-    }
-
+}
+printf("The origial matrix is : \n");
+for(int i=0;i<n ;i++){
+    for(int j=0;j<m;j++){
+        printf("%d ",O[i][j]);
+    } 
+    printf("\n");
+}
 }
 return 0;
 }
